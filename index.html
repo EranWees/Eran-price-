@@ -3,633 +3,330 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logic Devil - The Ultimate Test of Reason</title>
+    <title>Plant Care App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary-dark: #1a1a2e;
-            --primary-red: #e94560;
-            --primary-gold: #ffd700;
-            --transition: all 0.5s cubic-bezier(0.25, 1, 0.5, 1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cinzel', 'Times New Roman', serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
         }
-
+        
         body {
-            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
-            color: white;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
             min-height: 100vh;
-            overflow-x: hidden;
-        }
-
-        .screen {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 2rem;
-            opacity: 0;
-            transition: var(--transition);
-        }
-
-        .screen.active {
             display: flex;
-            opacity: 1;
+            flex-direction: column;
         }
-
-        /* Welcome Screen Styles */
-        .welcome-container {
-            text-align: center;
-            max-width: 800px;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 2px solid var(--primary-red);
-            box-shadow: 0 0 50px rgba(233, 69, 96, 0.3);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .welcome-container::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, var(--primary-gold), transparent 30%);
-            animation: rotate 10s linear infinite;
-            z-index: -1;
-        }
-
-        @keyframes rotate {
-            100% { transform: rotate(360deg); }
-        }
-
-        .game-title {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            text-shadow: 0 0 20px var(--primary-red);
-            background: linear-gradient(45deg, var(--primary-gold), var(--primary-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .tagline {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: #ccc;
-            font-style: italic;
-        }
-
-        .name-input {
-            width: 300px;
-            padding: 1rem;
-            font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--primary-gold);
-            color: white;
-            border-radius: 10px;
-            margin: 1rem 0;
-            text-align: center;
-        }
-
-        .theme-selection {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin: 2rem 0;
-        }
-
-        .theme-card {
-            background: rgba(255, 255, 255, 0.05);
-            border: 2px solid transparent;
-            border-radius: 15px;
-            padding: 1.5rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-align: center;
-        }
-
-        .theme-card:hover {
-            border-color: var(--primary-gold);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(255, 215, 0, 0.3);
-        }
-
-        .theme-card.active {
-            border-color: var(--primary-red);
-            background: rgba(233, 69, 96, 0.1);
-        }
-
-        .theme-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        /* Game Screen Styles */
-        .game-header {
-            width: 100%;
+        
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 2rem;
-            padding: 1rem 2rem;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 15px;
-            border: 1px solid var(--primary-gold);
+            margin-bottom: 25px;
+            padding: 0 5px;
         }
-
-        .level-display {
-            font-size: 1.5rem;
-            color: var(--primary-gold);
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d5a27;
+            letter-spacing: -0.5px;
         }
-
-        .puzzle-container {
-            width: 100%;
-            max-width: 800px;
-            background: rgba(0, 0, 0, 0.8);
+        
+        .icons {
+            display: flex;
+            gap: 18px;
+        }
+        
+        .icons i {
+            font-size: 20px;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .icons i:hover {
+            color: #2d5a27;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 18px;
+            color: #2d5a27;
+            font-weight: 700;
+            padding: 0 5px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 0 5px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
             border-radius: 20px;
-            padding: 2rem;
-            border: 2px solid var(--primary-red);
-            position: relative;
-        }
-
-        .puzzle-instruction {
-            font-size: 1.3rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            min-height: 60px;
-            color: #fff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-        }
-
-        .puzzle-content {
-            display: grid;
-            place-items: center;
-            min-height: 300px;
-        }
-
-        .level-grid {
-            display: grid;
-            grid-template-columns: repeat(5, 1fr);
-            gap: 1rem;
-            margin-top: 2rem;
-        }
-
-        .level-btn {
-            padding: 1rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--primary-gold);
-            border-radius: 10px;
-            color: white;
+            font-weight: 500;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
+            font-size: 15px;
         }
-
-        .level-btn:hover {
-            background: rgba(255, 215, 0, 0.2);
+        
+        .tab.active {
+            background-color: #2d5a27;
+            color: white;
+        }
+        
+        .tab:not(.active) {
+            background-color: #e9ecef;
+            color: #6c757d;
+        }
+        
+        .tab:not(.active):hover {
+            background-color: #dde2e6;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 20px 0 25px;
+            width: 100%;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d5a27;
+        }
+        
+        .add-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: #2d5a27;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .add-btn:hover {
+            background-color: #1e3f1a;
             transform: scale(1.05);
         }
-
-        .level-btn.completed {
-            background: rgba(0, 255, 0, 0.2);
-            border-color: #00ff00;
+        
+        .plant-name {
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 16px;
         }
-
-        .level-btn.current {
-            background: rgba(255, 215, 0, 0.3);
-            border-color: var(--primary-red);
-            animation: pulse 2s infinite;
+        
+        .plant-description {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
         }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #6c757d;
         }
-
-        /* Devil Narration */
-        .devil-narration {
-            position: fixed;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(233, 69, 96, 0.9);
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            border: 1px solid var(--primary-gold);
-            max-width: 600px;
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #28a745;
+        }
+        
+        .water-icon {
+            color: #4dabf7;
+            margin-right: 5px;
+        }
+        
+        .light-icon {
+            color: #ffd43b;
+            margin-right: 5px;
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding: 20px 0;
             text-align: center;
-            font-style: italic;
-            z-index: 1000;
+            color: #6c757d;
+            font-size: 14px;
         }
-
-        /* Buttons */
-        .btn {
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            background: linear-gradient(45deg, var(--primary-red), #ff6b6b);
-            border: none;
-            border-radius: 10px;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-            margin: 0.5rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(233, 69, 96, 0.4);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            border: 2px solid var(--primary-gold);
-        }
-
-        /* Theme-specific styles */
-        .theme-alchemist {
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
-        }
-
-        .theme-clockmaker {
-            background: linear-gradient(135deg, #2c3e50, #4ca1af);
-        }
-
-        .theme-sphinx {
-            background: linear-gradient(135deg, #c02425, #f0cb35);
-        }
-
-        /* Puzzle specific elements */
-        .puzzle-button {
-            padding: 1rem 2rem;
-            margin: 0.5rem;
-            background: var(--primary-red);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: var(--transition);
-        }
-
-        .puzzle-button:hover {
-            background: #ff6b6b;
-            transform: scale(1.05);
-        }
-
-        .hidden-element {
-            opacity: 0;
-            cursor: default;
-        }
-
-        .timer-display {
-            font-size: 3rem;
-            color: var(--primary-red);
-            margin: 1rem 0;
-        }
-
-        .code-input {
-            padding: 0.5rem;
-            font-size: 1.2rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid var(--primary-gold);
-            color: white;
-            border-radius: 5px;
-            margin: 0.5rem;
-            text-align: center;
+        
+        @media (max-width: 420px) {
+            body {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .tabs {
+                gap: 10px;
+            }
+            
+            .tab {
+                padding: 8px 16px;
+            }
         }
     </style>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- Welcome Screen -->
-    <div id="welcomeScreen" class="screen active">
-        <div class="welcome-container">
-            <h1 class="game-title">LOGIC DEVIL</h1>
-            <p class="tagline">"Your logic is your only weapon. My tricks are infinite."</p>
-            
-            <div class="input-group">
-                <input type="text" id="playerName" class="name-input" placeholder="State your name, challenger..." maxlength="20">
-            </div>
-
-            <h3 style="margin: 2rem 0 1rem 0; color: var(--primary-gold);">Choose Your First Trial</h3>
-            <div class="theme-selection">
-                <div class="theme-card" data-theme="alchemist">
-                    <div class="theme-icon">⚗️</div>
-                    <h4>The Alchemist's Trial</h4>
-                    <p>Transmutation & Ancient Symbols</p>
-                </div>
-                <div class="theme-card" data-theme="clockmaker">
-                    <div class="theme-icon">⏰</div>
-                    <h4>The Clockmaker's Labyrinth</h4>
-                    <p>Time & Sequential Mechanics</p>
-                </div>
-                <div class="theme-card" data-theme="sphinx">
-                    <div class="theme-icon">🦁</div>
-                    <h4>The Sphinx's Riddle</h4>
-                    <p>Paradoxes & Wordplay</p>
-                </div>
-            </div>
-
-            <button id="startGame" class="btn" disabled>Begin Your Torment</button>
+    <header>
+        <div class="logo">PlantCare</div>
+        <div class="icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-user"></i>
+        </div>
+    </header>
+    
+    <h1>Top picks</h1>
+    
+    <div class="tabs">
+        <div class="tab active">All</div>
+        <div class="tab">Outdoor</div>
+        <div class="tab">Indoor</div>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Make rela Vera</div>
+            <button class="add-btn">+</button>
+        </div>
+        <div class="plant-name">Pontiatus Evo</div>
+        <div class="status-indicator">
+            <i class="fas fa-tint water-icon"></i> Water every 7 days
+        </div>
+        <div class="status-indicator">
+            <i class="fas fa-sun light-icon"></i> Bright indirect light
         </div>
     </div>
-
-    <!-- Level Selection Screen -->
-    <div id="levelSelectScreen" class="screen">
-        <div class="welcome-container">
-            <h2 id="playerGreeting" style="color: var(--primary-gold); margin-bottom: 2rem;"></h2>
-            <h3 style="margin-bottom: 1rem;">Choose Your Challenge</h3>
-            
-            <div class="level-category">
-                <h4 style="color: var(--primary-red); margin: 1rem 0;">Entry Gauntlet (3 Levels)</h4>
-                <div class="level-grid" id="entryLevels"></div>
-            </div>
-
-            <div style="margin: 2rem 0;">
-                <button class="btn btn-secondary" onclick="showScreen('welcomeScreen')">Return to Menu</button>
-            </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Make rela Vera</div>
+            <button class="add-btn">+</button>
+        </div>
+        <div class="plant-description">
+            Succelems from the Tillandsia family are some of the easiest to care for - outside of an occasional misting.
+        </div>
+        <div class="status-indicator">
+            <span class="status-dot"></span> Easy to care for
         </div>
     </div>
-
-    <!-- Game Screen -->
-    <div id="gameScreen" class="screen">
-        <div class="game-header">
-            <div class="level-display" id="currentLevelDisplay">Level 1: The First Deception</div>
-            <div id="playerStats">Player: <span id="playerNameDisplay"></span></div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Snake Plant</div>
+            <button class="add-btn">+</button>
         </div>
-
-        <div class="puzzle-container">
-            <div class="puzzle-instruction" id="puzzleInstruction">
-                Welcome to your first test. Things are not as they seem...
-            </div>
-            <div class="puzzle-content" id="puzzleContent">
-                <!-- Puzzle content will be dynamically generated -->
-            </div>
+        <div class="plant-description">
+            Known for its air-purifying qualities, the snake plant thrives in low light and requires minimal watering.
         </div>
-
-        <div style="margin-top: 2rem; display: flex; gap: 1rem;">
-            <button class="btn btn-secondary" onclick="showLevelSelect()">Level Select</button>
-            <button class="btn" id="hintButton" onclick="giveHint()">Request Hint</button>
-            <button class="btn" id="submitButton" onclick="checkSolution()">Submit Answer</button>
+        <div class="status-indicator">
+            <i class="fas fa-tint water-icon"></i> Water every 14 days
+        </div>
+        <div class="status-indicator">
+            <i class="fas fa-sun light-icon"></i> Low to bright light
         </div>
     </div>
-
-    <!-- Devil Narration -->
-    <div id="devilNarration" class="devil-narration" style="display: none;">
-        Your patience is as fragile as glass...
+    
+    <div class="footer">
+        PlantCare App © 2023
     </div>
-
+    
     <script>
-        // Game State
-        const gameState = {
-            playerName: '',
-            selectedTheme: '',
-            currentLevel: 1,
-            completedLevels: new Set(),
-            hintsUsed: 0,
-            attempts: 0
-        };
-
-        // Level Data
-        const levels = {
-            1: {
-                title: "The First Deception",
-                instruction: "Click the button that says 'SOLVE' to proceed.",
-                content: `<div>
-                    <button class="puzzle-button" onclick="fakeSolve()">SOLVE</button>
-                    <button class="puzzle-button hidden-element" onclick="realSolve()" id="realButton">WAIT</button>
-                </div>`,
-                solution: "wait",
-                hint: "Perhaps you should wait before acting so hastily...",
-                theme: 'entry'
-            },
-            2: {
-                title: "The Lying Text",
-                instruction: "Press the SPACE key when the timer hits zero.",
-                content: `<div>
-                    <div class="timer-display" id="timer">5</div>
-                    <p>Wait for exactly zero...</p>
-                </div>`,
-                solution: "never",
-                hint: "The instruction itself is a lie. What if the timer never reaches zero?",
-                theme: 'entry'
-            },
-            3: {
-                title: "The Hidden Path",
-                instruction: "Find the invisible button to continue.",
-                content: `<div style="position: relative; width: 300px; height: 200px; background: rgba(255,255,255,0.1); border-radius: 10px;">
-                    <button class="puzzle-button" style="position: absolute; top: 70px; left: 120px; opacity: 0.01; width: 60px; height: 60px;" onclick="solveLevel(3)"></button>
-                    <p style="position: absolute; bottom: 10px; width: 100%; text-align: center;">There's nothing here...</p>
-                </div>`,
-                solution: "click",
-                hint: "Sometimes what you seek is hidden in plain sight, barely visible to the naked eye.",
-                theme: 'entry'
-            }
-        };
-
-        // DOM Elements
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const levelSelectScreen = document.getElementById('levelSelectScreen');
-        const gameScreen = document.getElementById('gameScreen');
-        const devilNarration = document.getElementById('devilNarration');
-
-        // Initialize Game
-        function initializeGame() {
-            // Theme selection
-            document.querySelectorAll('.theme-card').forEach(card => {
-                card.addEventListener('click', function() {
-                    document.querySelectorAll('.theme-card').forEach(c => c.classList.remove('active'));
-                    this.classList.add('active');
-                    gameState.selectedTheme = this.dataset.theme;
-                    document.getElementById('startGame').disabled = false;
-                    
-                    // Apply theme to body
-                    document.body.className = `theme-${this.dataset.theme}`;
-                });
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
             });
-
-            // Name input
-            document.getElementById('playerName').addEventListener('input', function(e) {
-                gameState.playerName = e.target.value.trim();
-                document.getElementById('startGame').disabled = !gameState.playerName || !gameState.selectedTheme;
-            });
-
-            // Start game
-            document.getElementById('startGame').addEventListener('click', startGame);
-
-            // Initialize level grid
-            initializeLevelGrid();
-        }
-
-        function startGame() {
-            if (!gameState.playerName || !gameState.selectedTheme) return;
-            
-            document.getElementById('playerGreeting').textContent = 
-                `Welcome, ${gameState.playerName}. Your ${gameState.selectedTheme} trial begins...`;
-            document.getElementById('playerNameDisplay').textContent = gameState.playerName;
-            
-            showLevelSelect();
-        }
-
-        function showLevelSelect() {
-            showScreen('levelSelectScreen');
-            updateLevelGrid();
-        }
-
-        function initializeLevelGrid() {
-            const entryLevels = document.getElementById('entryLevels');
-            for (let i = 1; i <= 3; i++) {
-                const btn = document.createElement('button');
-                btn.className = 'level-btn';
-                btn.textContent = i;
-                btn.onclick = () => loadLevel(i);
-                entryLevels.appendChild(btn);
-            }
-        }
-
-        function updateLevelGrid() {
-            const levelButtons = document.querySelectorAll('.level-btn');
-            levelButtons.forEach((btn, index) => {
-                const levelNum = index + 1;
-                btn.classList.toggle('completed', gameState.completedLevels.has(levelNum));
-                btn.classList.toggle('current', levelNum === gameState.currentLevel);
-            });
-        }
-
-        function loadLevel(levelNum) {
-            gameState.currentLevel = levelNum;
-            const level = levels[levelNum];
-            
-            if (!level) {
-                showDevilMessage("This level doesn't exist yet. Your ambition exceeds my creation.");
-                return;
-            }
-
-            document.getElementById('currentLevelDisplay').textContent = 
-                `Level ${levelNum}: ${level.title}`;
-            document.getElementById('puzzleInstruction').textContent = level.instruction;
-            document.getElementById('puzzleContent').innerHTML = level.content;
-            
-            // Reset game state for level
-            gameState.attempts = 0;
-
-            showScreen('gameScreen');
-
-            // Start any level-specific logic
-            if (levelNum === 2) {
-                startTimerPuzzle();
-            }
-        }
-
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
-
-        function showDevilMessage(message, duration = 3000) {
-            devilNarration.textContent = message;
-            devilNarration.style.display = 'block';
-            
-            setTimeout(() => {
-                devilNarration.style.display = 'none';
-            }, duration);
-        }
-
-        // Level-specific functions
-        function fakeSolve() {
-            gameState.attempts++;
-            showDevilMessage("So predictable... Did you really think it would be that simple?");
-        }
-
-        function realSolve() {
-            solveLevel(1);
-        }
-
-        function startTimerPuzzle() {
-            let timer = 5;
-            const timerElement = document.getElementById('timer');
-            const interval = setInterval(() => {
-                timer--;
-                timerElement.textContent = timer;
+        });
+        
+        // Add button functionality
+        document.querySelectorAll('.add-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const plantName = button.closest('.card').querySelector('.plant-name')?.textContent || 
+                                 button.closest('.card').querySelector('.card-title').textContent;
                 
-                if (timer <= 0) {
-                    clearInterval(interval);
-                    timerElement.textContent = "0";
-                    // The trick - it never actually solves by waiting
-                    showDevilMessage("Still waiting? The solution was never in the timer...");
-                }
-            }, 1000);
-        }
-
-        function solveLevel(levelNum) {
-            gameState.completedLevels.add(levelNum);
-            showDevilMessage("Adequate. But don't let this minor success inflate your ego.");
-            
-            setTimeout(() => {
-                showLevelSelect();
-            }, 2000);
-        }
-
-        function checkSolution() {
-            gameState.attempts++;
-            const currentLevel = levels[gameState.currentLevel];
-            
-            if (gameState.attempts >= 3) {
-                showDevilMessage("Perhaps you should reconsider your approach...");
-            } else {
-                showDevilMessage("Wrong again. Your logic fails you.");
-            }
-        }
-
-        function giveHint() {
-            gameState.hintsUsed++;
-            const currentLevel = levels[gameState.currentLevel];
-            showDevilMessage(currentLevel.hint);
-            
-            // Mock the player for using hints
-            if (gameState.hintsUsed > 2) {
+                // Visual feedback
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                button.style.backgroundColor = '#28a745';
+                
                 setTimeout(() => {
-                    showDevilMessage("How many hints will you need? Your independence withers...");
-                }, 2000);
-            }
-        }
-
-        // Initialize the game when loaded
-        window.addEventListener('DOMContentLoaded', initializeGame);
-
-        // Add some devilish key listeners
-        document.addEventListener('keydown', function(e) {
-            // Level 2 solution - press any key except space when timer is running
-            if (gameState.currentLevel === 2 && e.code !== 'Space') {
-                solveLevel(2);
-            }
-            
-            // Easter egg - secret key combination
-            if (e.ctrlKey && e.shiftKey && e.code === 'KeyD') {
-                showDevilMessage("CHEATER! But then again, I expected nothing less...");
-                // Auto-complete all levels
-                for (let i = 1; i <= 3; i++) {
-                    gameState.completedLevels.add(i);
-                }
-                updateLevelGrid();
-            }
+                    button.innerHTML = '+';
+                    button.style.backgroundColor = '#2d5a27';
+                }, 1500);
+                
+                // Optional: Show a toast notification
+                const toast = document.createElement('div');
+                toast.textContent = `Added ${plantName} to your collection!`;
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #2d5a27;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 3000);
+            });
         });
     </script>
 </body>
