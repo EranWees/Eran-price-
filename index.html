@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plant Care App</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+            max-width: 400px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding: 0 5px;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: 700;
+            color: #2d5a27;
+            letter-spacing: -0.5px;
+        }
+        
+        .icons {
+            display: flex;
+            gap: 18px;
+        }
+        
+        .icons i {
+            font-size: 20px;
+            color: #555;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+        
+        .icons i:hover {
+            color: #2d5a27;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 18px;
+            color: #2d5a27;
+            font-weight: 700;
+            padding: 0 5px;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding: 0 5px;
+        }
+        
+        .tab {
+            padding: 10px 20px;
+            border-radius: 20px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 15px;
+        }
+        
+        .tab.active {
+            background-color: #2d5a27;
+            color: white;
+        }
+        
+        .tab:not(.active) {
+            background-color: #e9ecef;
+            color: #6c757d;
+        }
+        
+        .tab:not(.active):hover {
+            background-color: #dde2e6;
+        }
+        
+        .divider {
+            height: 1px;
+            background-color: #e0e0e0;
+            margin: 20px 0 25px;
+            width: 100%;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .card-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2d5a27;
+        }
+        
+        .add-btn {
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            background-color: #2d5a27;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .add-btn:hover {
+            background-color: #1e3f1a;
+            transform: scale(1.05);
+        }
+        
+        .plant-name {
+            font-weight: 500;
+            margin-bottom: 12px;
+            color: #333;
+            font-size: 16px;
+        }
+        
+        .plant-description {
+            color: #6c757d;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 15px;
+            font-size: 14px;
+            color: #6c757d;
+        }
+        
+        .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #28a745;
+        }
+        
+        .water-icon {
+            color: #4dabf7;
+            margin-right: 5px;
+        }
+        
+        .light-icon {
+            color: #ffd43b;
+            margin-right: 5px;
+        }
+        
+        .footer {
+            margin-top: auto;
+            padding: 20px 0;
+            text-align: center;
+            color: #6c757d;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 420px) {
+            body {
+                padding: 15px;
+            }
+            
+            .card {
+                padding: 16px;
+            }
+            
+            .tabs {
+                gap: 10px;
+            }
+            
+            .tab {
+                padding: 8px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">PlantCare</div>
+        <div class="icons">
+            <i class="fas fa-search"></i>
+            <i class="fas fa-bell"></i>
+            <i class="fas fa-user"></i>
+        </div>
+    </header>
+    
+    <h1>Top picks</h1>
+    
+    <div class="tabs">
+        <div class="tab active">All</div>
+        <div class="tab">Outdoor</div>
+        <div class="tab">Indoor</div>
+    </div>
+    
+    <div class="divider"></div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Make rela Vera</div>
+            <button class="add-btn">+</button>
+        </div>
+        <div class="plant-name">Pontiatus Evo</div>
+        <div class="status-indicator">
+            <i class="fas fa-tint water-icon"></i> Water every 7 days
+        </div>
+        <div class="status-indicator">
+            <i class="fas fa-sun light-icon"></i> Bright indirect light
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Make rela Vera</div>
+            <button class="add-btn">+</button>
+        </div>
+        <div class="plant-description">
+            Succelems from the Tillandsia family are some of the easiest to care for - outside of an occasional misting.
+        </div>
+        <div class="status-indicator">
+            <span class="status-dot"></span> Easy to care for
+        </div>
+    </div>
+    
+    <div class="card">
+        <div class="card-header">
+            <div class="card-title">Snake Plant</div>
+            <button class="add-btn">+</button>
+        </div>
+        <div class="plant-description">
+            Known for its air-purifying qualities, the snake plant thrives in low light and requires minimal watering.
+        </div>
+        <div class="status-indicator">
+            <i class="fas fa-tint water-icon"></i> Water every 14 days
+        </div>
+        <div class="status-indicator">
+            <i class="fas fa-sun light-icon"></i> Low to bright light
+        </div>
+    </div>
+    
+    <div class="footer">
+        PlantCare App © 2023
+    </div>
+    
+    <script>
+        // Tab switching functionality
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+            });
+        });
+        
+        // Add button functionality
+        document.querySelectorAll('.add-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const plantName = button.closest('.card').querySelector('.plant-name')?.textContent || 
+                                 button.closest('.card').querySelector('.card-title').textContent;
+                
+                // Visual feedback
+                button.innerHTML = '<i class="fas fa-check"></i>';
+                button.style.backgroundColor = '#28a745';
+                
+                setTimeout(() => {
+                    button.innerHTML = '+';
+                    button.style.backgroundColor = '#2d5a27';
+                }, 1500);
+                
+                // Optional: Show a toast notification
+                const toast = document.createElement('div');
+                toast.textContent = `Added ${plantName} to your collection!`;
+                toast.style.cssText = `
+                    position: fixed;
+                    bottom: 80px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: #2d5a27;
+                    color: white;
+                    padding: 12px 20px;
+                    border-radius: 8px;
+                    font-size: 14px;
+                    z-index: 1000;
+                    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+                `;
+                document.body.appendChild(toast);
+                
+                setTimeout(() => {
+                    document.body.removeChild(toast);
+                }, 3000);
+            });
+        });
+    </script>
+</body>
+</html>
